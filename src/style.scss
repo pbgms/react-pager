@@ -1,0 +1,24 @@
+$fontColorDark: #3d3f47;
+$fontColorLight: #efefef;
+
+.paging{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    .pagingItem{
+        padding: 5px 5px;
+        cursor: pointer;
+        &:hover{
+            font-weight: 700;
+        }
+    }
+    .current{
+        font-weight: 700;
+    }
+}
+.light{
+    color: $fontColorLight;
+}
+.dark{
+    color: $fontColorDark;
+}
