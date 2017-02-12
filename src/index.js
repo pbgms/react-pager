@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { render } from 'react-dom'
 import classNames from 'classnames'
-import './style.scss';
+import './style.scss'
 
 export default class Pager extends Component {
 
@@ -20,9 +20,8 @@ export default class Pager extends Component {
         let showNext = pageCount > currentPage
         let numbers = [...Array(pageCount).keys()]
 
-        let classes = classNames('pagingItem',
-            {light: theme === 'light', dark: theme === 'dark'}
-        )
+        let themeClasses = {light: theme === 'light', dark: theme === 'dark'}
+        let classes = classNames('pagingItem', themeClasses)
 
         return (
             <div className='paging'>
@@ -32,9 +31,7 @@ export default class Pager extends Component {
                 }
 
                 {pageCount > 1 && numbers.map(x => {
-                    let pageClasses = classNames('pagingItem',
-                        {current: x+1 === currentPage, light: theme === 'light', dark: theme === 'dark'}
-                    )
+                    let pageClasses = classNames('pagingItem', {current: x+1 === currentPage}, themeClasses)
                     return ( 
                         <div key={x} className={pageClasses} onClick={(e) => changePage(x+1)}>
                             {x+1}
@@ -59,16 +56,3 @@ Pager.propTypes = {
     changePage: PropTypes.func.isRequired,
     theme: PropTypes.string.isRequired
 }
-
-
-render(
-    <Pager
-        itemCount={12}
-        itemsPerPage={10}
-        currentPage={1}
-        changePage={()=>{}}
-        theme="dark"
-    />,
-    document.getElementById('app')
-)
-

@@ -86,14 +86,21 @@
 	    _createClass(Pager, [{
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _props = this.props,
+	                itemCount = _props.itemCount,
+	                currentPage = _props.currentPage,
+	                itemsPerPage = _props.itemsPerPage,
+	                changePage = _props.changePage,
+	                theme = _props.theme;
 	
-	            var pageCount = Math.ceil(this.props.itemCount / this.props.itemsPerPage);
-	            var showPrevious = this.props.currentPage !== 1;
-	            var showNext = pageCount > this.props.currentPage;
-	            var spread = [].concat(_toConsumableArray(Array(pageCount).keys()));
 	
-	            var classes = (0, _classnames2.default)('pagingItem', { invertColor: this.props.invertColor });
+	            var pageCount = Math.ceil(itemCount / itemsPerPage);
+	            var showPrevious = currentPage !== 1;
+	            var showNext = pageCount > currentPage;
+	            var numbers = [].concat(_toConsumableArray(Array(pageCount).keys()));
+	
+	            var themeClasses = { light: theme === 'light', dark: theme === 'dark' };
+	            var classes = (0, _classnames2.default)('pagingItem', themeClasses);
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -101,30 +108,24 @@
 	                showPrevious && _react2.default.createElement(
 	                    'div',
 	                    { className: classes, onClick: function onClick(e) {
-	                            return _this2.props.changePage(_this2.props.currentPage - 1);
+	                            return changePage(currentPage - 1);
 	                        } },
 	                    '<'
 	                ),
-	                pageCount > 1 && spread.map(function (x) {
-	                    var pageClasses = (0, _classnames2.default)('pagingItem', {
-	                        current: x + 1 === _this2.props.currentPage,
-	                        invertColor: _this2.props.invertColor });
+	                pageCount > 1 && numbers.map(function (x) {
+	                    var pageClasses = (0, _classnames2.default)('pagingItem', { current: x + 1 === currentPage }, themeClasses);
 	                    return _react2.default.createElement(
 	                        'div',
-	                        {
-	                            key: x,
-	                            className: pageClasses,
-	                            onClick: function onClick(e) {
-	                                return _this2.props.changePage(x + 1);
-	                            }
-	                        },
+	                        { key: x, className: pageClasses, onClick: function onClick(e) {
+	                                return changePage(x + 1);
+	                            } },
 	                        x + 1
 	                    );
 	                }),
 	                showNext && _react2.default.createElement(
 	                    'div',
 	                    { className: classes, onClick: function onClick(e) {
-	                            return _this2.props.changePage(_this2.props.currentPage + 1);
+	                            return changePage(currentPage + 1);
 	                        } },
 	                    '>'
 	                )
@@ -139,16 +140,12 @@
 	
 	
 	process.env.NODE_ENV !== "production" ? Pager.propTypes = {
-	    itemCount: _react.PropTypes.number.required,
-	    itemsPerPage: _react.PropTypes.number.required,
-	    currentPage: _react.PropTypes.number.required,
-	    changePage: _react.PropTypes.func.required,
-	    style: _react.PropTypes.string.required
+	    itemCount: _react.PropTypes.number.isRequired,
+	    itemsPerPage: _react.PropTypes.number.isRequired,
+	    currentPage: _react.PropTypes.number.isRequired,
+	    changePage: _react.PropTypes.func.isRequired,
+	    theme: _react.PropTypes.string.isRequired
 	} : void 0;
-	
-	var rootElement = document.getElementById('app');
-	
-	(0, _reactDom.render)(_react2.default.createElement(Pager, null), rootElement);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
@@ -21671,7 +21668,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".paging {\n  display: flex;\n  align-self: center;\n  justify-content: center;\n  margin-top: 40px;\n  color: #3d3f47;\n  font-size: 14px; }\n  .paging .pagingItem {\n    padding: 5px 10px;\n    cursor: pointer; }\n    .paging .pagingItem:hover {\n      background: #48d293; }\n  .paging .current {\n    background: #2eb97a; }\n  .paging .invertColor {\n    color: #efefef; }\n", ""]);
+	exports.push([module.id, ".paging {\n  display: flex;\n  align-self: center;\n  justify-content: center; }\n  .paging .pagingItem {\n    padding: 5px 5px;\n    cursor: pointer; }\n    .paging .pagingItem:hover {\n      font-weight: 700; }\n  .paging .current {\n    font-weight: 700; }\n\n.light {\n  color: #efefef; }\n\n.dark {\n  color: #3d3f47; }\n", ""]);
 	
 	// exports
 
