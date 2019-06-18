@@ -32,7 +32,7 @@ export default class Pager extends Component {
 
                 {pageCount > 1 && numbers.map(x => {
                     let pageClasses = classNames('pagingItem', {current: x+1 === currentPage}, themeClasses)
-                    return ( 
+                    return (
                         <div key={x} className={pageClasses} onClick={(e) => changePage(x+1)}>
                             {x+1}
                         </div>
